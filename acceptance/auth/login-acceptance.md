@@ -184,7 +184,9 @@
 - [ ] Page uses dark mode theme
 - [ ] Form is centered on page
 - [ ] Inputs have clear labels
-- [ ] Password field masks characters
+- [ ] Password field masks characters by default
+- [ ] Password field has visibility toggle (eye icon)
+- [ ] Eye icon shows "eye" when masked, "eye-slash" when visible
 - [ ] Button shows loading spinner during request
 - [ ] Error messages are red and clearly visible
 - [ ] Form is responsive on mobile (320px - 1920px)
@@ -192,11 +194,14 @@
 ### Interaction Requirements
 
 - [ ] Email field autofocus on page load
-- [ ] Tab key moves between fields correctly
+- [ ] Tab key moves between fields correctly (including password toggle)
 - [ ] Enter key submits form
+- [ ] Space or Enter key toggles password visibility
 - [ ] Form cannot be submitted while loading
 - [ ] Error messages appear near relevant fields
 - [ ] Success transition is smooth (no jarring redirect)
+- [ ] Password visibility toggle is keyboard accessible
+- [ ] Password visibility state is announced by screen readers
 
 ### Accessibility Requirements
 

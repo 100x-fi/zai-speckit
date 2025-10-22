@@ -41,11 +41,14 @@ Zai internal team needs to authenticate to access the backoffice platform. Login
 
 - Clean, minimal dark mode UI
 - Form with email and password fields
+- Password visibility toggle (eye icon to show/hide password)
 - Submit button (disabled during loading)
 - Error message display area
 - Loading state during API call
-- Mobile responsive
+- Mobile responsive (44px minimum tap targets)
 - No external UI libraries (Tailwind only)
+- Password field starts masked (secure default)
+- Eye icon in password field (right side or inline)
 
 ### Backend Requirements
 

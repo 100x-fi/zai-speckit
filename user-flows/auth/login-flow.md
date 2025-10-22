@@ -9,6 +9,7 @@
    └─> Page displays login form (dark mode)
        - Email input field
        - Password input field (masked)
+       - Password visibility toggle (eye icon)
        - "Login" button
 
 2. User enters email and password
@@ -201,21 +202,43 @@
 - Error: Show specific error messages, form re-enabled
 - Network Error: Show "Unable to connect. Please try again."
 
+## Password Visibility Toggle
+
+**When user clicks eye icon:**
+- Toggle password field between masked and visible text
+- Show "eye" icon when password is masked
+- Show "eye-slash" icon when password is visible
+- Maintain cursor position in password field
+- Preserve password value during toggle
+- Allow immediate visibility testing without affecting form submission
+
+**Security Requirements:**
+- Default state: Password must be masked
+- Clear visibility after form submission or timeout
+- Never store password visibility preference for security
+- Prevent password value visibility in page source code
+- Use secure input methods even when visible
+
 ## Mobile Considerations
 
 - All form fields must be easily tappable (min 44px height)
+- Password field visibility toggle must be easily tappable
 - Keyboard should show email type for email field
 - Password field should show secure keyboard
 - Error messages should be visible above keyboard
 - Form should not be obscured by keyboard
+- Eye icon must have minimum 44x44px tap area
 
 ## Accessibility
 
 - All form fields must have labels
 - Error messages must be announced by screen readers
 - Focus management: error -> focus appropriate field
-- Keyboard navigation: Tab through fields
+- Keyboard navigation: Tab through fields, including password visibility toggle
 - Button must be keyboard accessible (Enter to submit)
+- Password visibility toggle must be keyboard accessible (Space to toggle, Enter to confirm)
+- Eye icon must have descriptive alt text ("Show password"/"Hide password")
+- Toggle state must be announced by screen readers
 - Sufficient color contrast in dark mode
 
 ## Performance
