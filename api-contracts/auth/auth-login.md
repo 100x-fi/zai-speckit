@@ -1,12 +1,15 @@
-# API Contract: User Login
+# API Contract: Backoffice Login
 
-**Endpoint:** `POST /api/auth/login`
+**Endpoint:** `POST /bo/login`
 **Version:** 1.0
 **Last Updated:** 2025-01-20
+**Status:** NEW - To be implemented
 
 ## Purpose
 
-Authenticate user credentials and return a session token.
+Authenticate Zai internal team (backoffice admins) and return a session token.
+
+**Note:** This is separate from `/login` (for ClientAdmins).
 
 ## Request
 
