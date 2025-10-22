@@ -1,4 +1,4 @@
-# Feature: User Login
+# Feature: Backoffice Admin Login
 
 **Status:** Draft
 **Priority:** P0 (Critical)
@@ -7,36 +7,24 @@
 
 ## Overview
 
-Users need to authenticate to access the platform. Login should be simple, secure, and work seamlessly between frontend and backend.
+Zai internal team needs to authenticate to access the backoffice platform. Login should be simple, secure, and work seamlessly between zai-bo-frontend and zai-backend.
 
 ## User Stories
 
 ### US-001: Login with Email and Password
 
-**As a** platform user
+**As a** backoffice admin
 **I want to** log in with my email and password
-**So that** I can access my account and use the platform
+**So that** I can access the backoffice and manage the platform
 
 **Acceptance Criteria:**
 - User can enter email and password
 - System validates credentials
-- On success: User is redirected to dashboard with valid session
+- On success: User is redirected to dashboard with valid 30-day session
 - On failure: Clear error message is shown
 - Session persists across browser refreshes
 
-### US-002: Remember Me Option
-
-**As a** returning user
-**I want to** stay logged in across sessions
-**So that** I don't have to log in every time
-
-**Acceptance Criteria:**
-- "Remember me" checkbox available on login form
-- When checked, session lasts 30 days
-- When unchecked, session lasts until browser closes
-- User can log out manually at any time
-
-### US-003: Error Handling
+### US-002: Error Handling
 
 **As a** user
 **I want to** see clear error messages when login fails
@@ -45,9 +33,7 @@ Users need to authenticate to access the platform. Login should be simple, secur
 **Acceptance Criteria:**
 - Invalid email format: "Please enter a valid email address"
 - Wrong credentials: "Invalid email or password"
-- Account locked: "Account locked. Contact support"
 - Server error: "Unable to connect. Please try again"
-- Rate limited: "Too many attempts. Try again in X minutes"
 
 ## Requirements
 
@@ -55,7 +41,6 @@ Users need to authenticate to access the platform. Login should be simple, secur
 
 - Clean, minimal dark mode UI
 - Form with email and password fields
-- "Remember me" checkbox
 - Submit button (disabled during loading)
 - Error message display area
 - Loading state during API call
@@ -64,13 +49,11 @@ Users need to authenticate to access the platform. Login should be simple, secur
 
 ### Backend Requirements
 
-- POST endpoint to authenticate users
+- POST /bo/login endpoint to authenticate backoffice admins
 - Validate email format and password
-- Return JWT token on success
+- Return JWT token on success (30-day expiry)
 - Return appropriate error codes on failure
-- Rate limiting: 5 attempts per 15 minutes per IP
-- Log failed login attempts
-- Support "remember me" with different token expiry
+- Log failed login attempts for security monitoring
 
 ### Security Requirements
 
@@ -91,8 +74,7 @@ Users need to authenticate to access the platform. Login should be simple, secur
 ## Dependencies
 
 - Backend API must be deployed
-- Database with user table must exist
-- Email validation service (if needed)
+- Database with backoffice_admins table must exist
 
 ## References
 
