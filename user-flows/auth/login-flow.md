@@ -9,7 +9,6 @@
    └─> Page displays login form (dark mode)
        - Email input field
        - Password input field (masked)
-       - "Remember me" checkbox
        - "Login" button
 
 2. User enters email and password
@@ -21,7 +20,7 @@
    └─> Frontend actions:
        - Disable form
        - Show loading state on button
-       - Call POST /api/auth/login
+       - Call POST /bo/login
 
 4. Backend processes request
    └─> Validates credentials
@@ -35,12 +34,14 @@
        - JWT token
        - User data (id, email, name)
        - Token expiry
+       - Response format: `{status: 'success', data: {...}}`
 
 6. Frontend receives success
    └─> Actions:
-       - Store token securely
-       - Store user data in app state
-       - Redirect to dashboard
+       - Store token in localStorage (30-day session)
+       - Store user data in localStorage
+       - Update AuthContext state (single source of truth)
+       - Redirect to dashboard (/dashboard)
 
 7. User sees dashboard
    └─> Now authenticated and can use platform
@@ -193,8 +194,10 @@
 - After logout
 
 **Exit Points:**
-- Success: Redirect to `/dashboard` (or return URL if specified)
-- Already logged in: Auto-redirect to dashboard
+- Success: Redirect to `/dashboard` using TanStack Router
+- Already logged in: Auto-redirect to dashboard (protected route)
+- Error: Show specific error messages, form re-enabled
+- Network Error: Show "Unable to connect. Please try again."
 
 ## Mobile Considerations
 
@@ -203,7 +206,6 @@
 - Password field should show secure keyboard
 - Error messages should be visible above keyboard
 - Form should not be obscured by keyboard
-- Remember me checkbox should be easy to tap
 
 ## Accessibility
 

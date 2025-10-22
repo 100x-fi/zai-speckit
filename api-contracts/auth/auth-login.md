@@ -41,7 +41,7 @@ Content-Type: application/json
 
 ```json
 {
-  "success": true,
+  "status": "success",
   "data": {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "user": {
@@ -100,6 +100,7 @@ Content-Type: application/json
 | INVALID_INPUT | 400 | Bad request format | Show field error |
 | INVALID_CREDENTIALS | 401 | Wrong email/password | Show generic error |
 | INTERNAL_ERROR | 500 | Server error | Show generic error, allow retry |
+| NETWORK_ERROR | - | No network connection | Show connection error |
 
 ## Behavior Requirements
 
@@ -113,16 +114,20 @@ Content-Type: application/json
 - Password must be transmitted over HTTPS only
 - Response must not reveal whether email exists
 - Token must be cryptographically secure (JWT with RS256 recommended)
+- Response format uses `{status: 'success'}` instead of `{success: true}`
 
 ## Frontend Implementation Notes
 
 **For Frontend Team:**
 - Call this endpoint when user submits login form
-- Store token securely (HttpOnly cookie preferred, or secure storage)
+- Store token in localStorage (30-day session)
+- Store user data in localStorage and AuthContext
 - Include token in `Authorization: Bearer {token}` header for subsequent requests
 - Handle all error codes with appropriate UI feedback
 - Implement loading state while request is in flight
 - Disable form during submission
+- Use TanStack Router for navigation to `/dashboard` on success
+- Normalize backend response `{status: 'success'}` to internal format `{success: true}`
 
 ## Backend Implementation Notes
 
@@ -130,7 +135,6 @@ Content-Type: application/json
 - Validate email format before database lookup
 - Use constant-time comparison for password check
 - Return generic error for invalid credentials (don't reveal if email exists)
-- Implement rate limiting per IP address
 - Generate JWT with user ID and expiry
 - Log failed login attempts for security monitoring
 
@@ -142,5 +146,3 @@ Content-Type: application/json
 - [ ] Non-existent email returns 401 (not 404)
 - [ ] 6th attempt within 15 min returns 429
 - [ ] Token is valid JWT with correct expiry
-- [ ] Remember me extends token expiry
-- [ ] Rate limit resets after 15 minutes

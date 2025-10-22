@@ -16,10 +16,13 @@
 
 **Then:**
 - [ ] API returns HTTP 200
+- [ ] Response format: `{status: 'success', data: {...}}`
 - [ ] Response contains valid JWT token
 - [ ] Response contains user data (id, email, name)
-- [ ] Frontend stores token securely
-- [ ] Frontend redirects to `/dashboard`
+- [ ] Frontend stores token in localStorage (30-day session)
+- [ ] Frontend stores user data in localStorage
+- [ ] AuthContext state updated (single source of truth)
+- [ ] Frontend redirects to `/dashboard` using TanStack Router
 - [ ] User can access protected routes with token
 
 ---
@@ -101,30 +104,16 @@
 
 ---
 
-### Scenario 7: Remember Me Enabled
+### Scenario 7: Token Storage and Expiry
 
-**Given** user checks "Remember me" checkbox
-
-**When** user logs in successfully
+**Given** user logs in successfully
 
 **Then:**
-- [ ] Token expiry is set to 30 days (not 24 hours)
+- [ ] Token expiry is set to 30 days
 - [ ] User remains logged in after browser restart
 - [ ] Token is valid for 30 days
 - [ ] User can access platform without re-login
-
----
-
-### Scenario 8: Remember Me Disabled
-
-**Given** user leaves "Remember me" unchecked
-
-**When** user logs in successfully
-
-**Then:**
-- [ ] Token expiry is set to 24 hours
-- [ ] Session ends when browser is closed (implementation dependent)
-- [ ] User must re-login after expiry
+- [ ] Token is stored in localStorage
 
 ---
 
@@ -225,7 +214,7 @@
 
 - [ ] All requests use HTTPS
 - [ ] Password never visible in network logs
-- [ ] Token stored securely (not localStorage)
+- [ ] Token stored in localStorage (30-day session)
 - [ ] Failed attempts are rate limited
 - [ ] No sensitive data in error messages
 - [ ] CSRF protection enabled
@@ -270,6 +259,26 @@ Password: WrongPassword
 - user@example
 ```
 
+## Technical Implementation Details
+
+### Frontend Architecture (zai-bo-frontend)
+- **Framework**: React 19.1.1 + TypeScript
+- **Routing**: TanStack Router v1.133.20 (file-based routing)
+- **State Management**: React Context + TanStack Query
+- **Styling**: Tailwind CSS (dark mode)
+- **Build Tool**: Vite 7.1.11 + Bun
+- **Authentication Flow**:
+  - Login component calls API
+  - AuthContext manages single source of truth
+  - localStorage for persistence (30-day session)
+  - Protected routes redirect to `/dashboard`
+
+### Backend Integration Requirements (zai-backend)
+- **Endpoint**: `POST /bo/login`
+- **Response Format**: `{status: 'success', data: {token, user, expiresAt}}`
+- **Token**: JWT with 30-day expiry
+- **Security**: HTTPS, password hashing, rate limiting
+
 ## Definition of Done
 
 Feature is complete when:
@@ -279,4 +288,5 @@ Feature is complete when:
 - [ ] Security requirements met
 - [ ] Cross-browser testing complete
 - [ ] Both frontend and backend teams sign off
-- [ ] Documentation updated
+- [ ] Documentation updated (current specs)
+- [ ] Frontend implementation verified against backend API
