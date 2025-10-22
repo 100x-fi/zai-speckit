@@ -61,13 +61,15 @@
 
 6. Frontend receives error
    └─> Actions:
-       - Re-enable form
-       - Show error message below form
-       - Keep email filled, clear password
-       - Focus password field
+       - Re-enable form immediately
+       - Show error message below form (red text)
+       - Keep email field filled with entered value
+       - Clear password field completely
+       - Set cursor focus to password input field
+       - Allow unlimited retry attempts (rate limiting handled separately)
 
 7. User sees error message
-   └─> Can try again with correct credentials
+   └─> Can retry immediately with correct credentials
 ```
 
 ## Alternative Flow: Account Locked

@@ -52,10 +52,13 @@
 - [ ] API returns HTTP 401
 - [ ] Error code: `INVALID_CREDENTIALS`
 - [ ] Frontend shows: "Invalid email or password"
-- [ ] Email field retains entered value
-- [ ] Password field is cleared
-- [ ] Form is re-enabled
-- [ ] User can retry
+- [ ] Email field retains entered value for convenience
+- [ ] Password field is completely cleared (no masked characters)
+- [ ] Form is immediately re-enabled for retry
+- [ ] Password input field receives keyboard focus for retry
+- [ ] Error message appears in red styling below form
+- [ ] User can retry without page refresh or navigation
+- [ ] Generic error message (doesn't reveal if email exists)
 
 ---
 

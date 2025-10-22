@@ -81,6 +81,14 @@ Content-Type: application/json
 }
 ```
 
+**Frontend Behavior on Wrong Credentials:**
+- Clear password field (keep email for user convenience)
+- Focus cursor on password field for retry attempt
+- Show generic error message ("Invalid email or password")
+- Do NOT reveal whether email exists in system
+- Allow unlimited retries (subject to rate limiting)
+- Re-enable form for immediate retry
+
 #### 500 Internal Server Error
 
 ```json
