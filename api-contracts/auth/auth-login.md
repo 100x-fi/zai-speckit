@@ -24,8 +24,7 @@ Content-Type: application/json
 ```json
 {
   "email": "user@example.com",
-  "password": "securepassword123",
-  "rememberMe": false
+  "password": "securepassword123"
 }
 ```
 
@@ -35,7 +34,6 @@ Content-Type: application/json
 |-------|------|----------|-------------|
 | email | string | Yes | Valid email format, max 255 chars |
 | password | string | Yes | Min 8 chars, max 128 chars |
-| rememberMe | boolean | No | Default: false |
 
 ## Response
 
@@ -83,31 +81,6 @@ Content-Type: application/json
 }
 ```
 
-#### 403 Forbidden - Account Locked
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "ACCOUNT_LOCKED",
-    "message": "Account locked due to multiple failed login attempts. Try again in 15 minutes."
-  }
-}
-```
-
-#### 429 Too Many Requests - Rate Limited
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "RATE_LIMITED",
-    "message": "Too many login attempts. Try again in 12 minutes.",
-    "retryAfter": 720
-  }
-}
-```
-
 #### 500 Internal Server Error
 
 ```json
@@ -126,30 +99,20 @@ Content-Type: application/json
 |------|-------------|---------|-----------------|
 | INVALID_INPUT | 400 | Bad request format | Show field error |
 | INVALID_CREDENTIALS | 401 | Wrong email/password | Show generic error |
-| ACCOUNT_LOCKED | 403 | Too many failed attempts | Show lockout message |
-| RATE_LIMITED | 429 | Too many requests | Show retry timer |
 | INTERNAL_ERROR | 500 | Server error | Show generic error, allow retry |
 
 ## Behavior Requirements
 
-### Rate Limiting
-
-- Maximum 5 attempts per 15 minutes per IP address
-- After 5 failed attempts, return 429 with retry time
-- Counter resets after successful login or timeout
-
 ### Token Expiry
 
-- Default token: 24 hours
-- "Remember me" token: 30 days
+- Token expiry: 30 days (long-lived session)
 - Backend must validate token expiry on protected routes
 
 ### Security
 
 - Password must be transmitted over HTTPS only
 - Response must not reveal whether email exists
-- Log all failed attempts with IP and timestamp
-- Token must be cryptographically secure (JWT with HS256 minimum)
+- Token must be cryptographically secure (JWT with RS256 recommended)
 
 ## Frontend Implementation Notes
 
