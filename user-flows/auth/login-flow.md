@@ -63,11 +63,12 @@
 6. Frontend receives error
    └─> Actions:
        - Re-enable form immediately
-       - Show error message below form (red text)
+       - Show error message directly under password field (red text)
        - Keep email field filled with entered value
        - Clear password field completely
        - Set cursor focus to password input field
        - Allow unlimited retry attempts (rate limiting handled separately)
+       - Error message should be prominent but not overly alarming
 
 7. User sees error message
    └─> Can retry immediately with correct credentials
@@ -88,8 +89,9 @@
 6. Frontend receives error
    └─> Actions:
        - Re-enable form
-       - Show error message prominently
+       - Show error message prominently in red text directly under password field
        - Display retry time if available
+       - Error message should be more severe than wrong credentials (account locked)
 
 7. User sees lockout message
    └─> Must wait before trying again
@@ -111,8 +113,9 @@
 6. Frontend receives error
    └─> Actions:
        - Disable form completely
-       - Show countdown timer
+       - Show countdown timer in red text directly under password field
        - Explain rate limit reason
+       - Error message should indicate temporary restriction
 
 7. User sees rate limit message
    └─> Must wait for timer to expire
@@ -218,6 +221,32 @@
 - Never store password visibility preference for security
 - Prevent password value visibility in page source code
 - Use secure input methods even when visible
+
+## Error Message Positioning and Styling
+
+**Location**: All error messages appear directly under the password field for maximum visibility and user feedback.
+
+**Styling Requirements:**
+- Red text color for all error messages (dark mode compatibility)
+- Error text size slightly smaller than labels but larger than placeholder text
+- Error messages should not be overly alarming or aggressive
+- Consistent positioning under password field regardless of error type
+- Error messages should disappear when user starts typing again
+
+**Error Message Hierarchy:**
+1. **Invalid Email**: Show under email field (validation error)
+2. **Invalid Credentials**: Show under password field (backend error)
+3. **Account Locked**: Show under password field (security error, more prominent)
+4. **Rate Limited**: Show under password field with countdown (temporary restriction)
+5. **Network Error**: Show under password field (technical error)
+6. **Server Error**: Show under password field (generic technical error)
+
+**Error Message Behavior:**
+- Appear immediately when error occurs
+- Remain visible until user interacts with form
+- Clear when user starts typing in either field
+- Re-appear if same error occurs again
+- Stack if multiple errors occur (unlikely but supported)
 
 ## Mobile Considerations
 

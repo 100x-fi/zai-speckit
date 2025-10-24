@@ -84,10 +84,12 @@ Content-Type: application/json
 **Frontend Behavior on Wrong Credentials:**
 - Clear password field (keep email for user convenience)
 - Focus cursor on password field for retry attempt
-- Show generic error message ("Invalid email or password")
+- Show generic error message ("Invalid email or password") in red text directly under password field
+- Error message should be positioned immediately below password input for visibility
 - Do NOT reveal whether email exists in system
 - Allow unlimited retries (subject to rate limiting)
 - Re-enable form for immediate retry
+- Error styling should be prominent but professional (red text, not alarming)
 
 #### 500 Internal Server Error
 

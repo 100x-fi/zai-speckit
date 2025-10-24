@@ -35,7 +35,8 @@
 
 **Then:**
 - [ ] Frontend validation catches error before API call
-- [ ] Error message shown: "Please enter a valid email address"
+- [ ] Error message shown: "Please enter a valid email address" (red text)
+- [ ] Error message appears directly under email field
 - [ ] No API request is made
 - [ ] Form remains enabled
 - [ ] Email field is highlighted/focused
@@ -51,12 +52,13 @@
 **Then:**
 - [ ] API returns HTTP 401
 - [ ] Error code: `INVALID_CREDENTIALS`
-- [ ] Frontend shows: "Invalid email or password"
+- [ ] Frontend shows: "Invalid email or password" (red text)
+- [ ] Error message appears directly under password field
 - [ ] Email field retains entered value for convenience
 - [ ] Password field is completely cleared (no masked characters)
 - [ ] Form is immediately re-enabled for retry
 - [ ] Password input field receives keyboard focus for retry
-- [ ] Error message appears in red styling below form
+- [ ] Error message styling is prominent but not alarming
 - [ ] User can retry without page refresh or navigation
 - [ ] Generic error message (doesn't reveal if email exists)
 
@@ -176,6 +178,28 @@
 - [ ] Requests without token are rejected (401)
 
 ---
+
+## Error Message Acceptance Criteria
+
+### Error Message Positioning
+
+- [ ] All error messages appear directly under relevant input field
+- [ ] Email validation errors appear under email field
+- [ ] Backend errors (invalid credentials, locked, rate limited) appear under password field
+- [ ] Network errors appear under password field
+- [ ] Error messages use red text color (dark mode compatible)
+- [ ] Error text size is appropriate (smaller than labels, larger than placeholders)
+- [ ] Error messages are prominent but not overly alarming
+- [ ] Error messages clear when user starts typing again
+- [ ] Error messages reappear if same error occurs again
+- [ ] Multiple errors stack properly (if applicable)
+
+### Error Message Styling
+- [ ] Red text color for all error messages
+- [ ] Consistent positioning regardless of error type
+- [ ] Error text is readable in dark mode
+- [ ] Error messages don't break form layout
+- [ ] Error messages have proper spacing from input fields
 
 ## UI/UX Acceptance Criteria
 
